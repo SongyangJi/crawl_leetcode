@@ -168,48 +168,15 @@ def crawling_problem_by_name(problem_name):
     return True
 
 
-# 工作线程
-class workingThread(threading.Thread):
-    def __init__(self, que):
-        super().__init__()
-        self.que = que
-
-    def run(self) -> None:
-        while not self.que.empty():
-            name = self.que.get(timeout=3)
-            crawling_problem_by_name(name)
-
-
-# 工作进程，开启 8 个
-# 每个进程里，开启5个线程
-class workingProcess(Process):
-    def __init__(self, que):
-        super().__init__()
-        self.que = que
-
-    def run(self) -> None:
-        for i in range(5):
-            t = workingThread(self.que)
-            t.start()
-            t.join()
-
-
 def main():
     begin = time.time()
 
-    ls = open_page()
+    problem_names = open_page()
 
-    print('需要爬取的题目数量:', len(ls))
+    print('需要爬取的题目数量:', len(problem_names))
 
-    que = Queue()
-    for s in ls:
-        que.put(s)
-    #  本机的cpu核心为 8
-    for i in range(8):
-        p = workingProcess(que)
-        p.daemon = True
-        p.start()
-        p.join()
+    for problem_name in problem_names:
+        crawling_problem_by_name(problem_name)
 
     end = time.time()
     print('爬虫结束,耗费时间为', (end - begin), '秒\n')
