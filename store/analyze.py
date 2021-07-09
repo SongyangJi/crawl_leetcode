@@ -36,6 +36,7 @@ def analyzeDataFrame(df):
     pass
 
 
+
 if __name__ == '__main__':
     df = getDataFrameFromProblems_brief_information()
     analyzeDataFrame(df)
