@@ -41,7 +41,7 @@ def analyzeLevel_Num(df):
 
 def analyzeSolutions_Rate():
     data = getData()
-    df = pd.DataFrame({'通过率': [float(it['passing_rate'][:-1])/100 for it in data]},
+    df = pd.DataFrame({'通过率': [float(it['passing_rate'][:-1]) / 100 for it in data]},
                       index=[it['solutions'] for it in data])
     print(df)
     df.sort_index().plot()
@@ -49,7 +49,18 @@ def analyzeSolutions_Rate():
     pass
 
 
+def analyzeLevel_Rate(df):
+    df['passing_rate'] = df['passing_rate'].map(lambda x: float(x[:-1]) / 100)
+    df = df.groupby('difficult_level')['passing_rate'].mean()
+    df = pd.DataFrame(df.values, columns=['平均通过率'], index=df.index)
+    df.sort_values(by='平均通过率',inplace=True,ascending=False)
+    df.plot(kind='bar')
+    plt.show()
+    pass
+
+
 if __name__ == '__main__':
     df = getDataFrameFromProblems_brief_information()
-    analyzeLevel_Num(df)
-    analyzeSolutions_Rate()
+    # analyzeLevel_Num(df)
+    # analyzeSolutions_Rate()
+    analyzeLevel_Rate(df)
