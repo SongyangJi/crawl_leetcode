@@ -15,6 +15,18 @@
 3. 下载Chrome Driver(selenium需要使用到)
 4. 抓取数据：运行scrape/crawler.py 即可
 
+## 项目成果展示
+![img_1.png](imgs/img_1.png)
+
+![img_2.png](imgs/img_2.png)
+
+![img_3.png](imgs/img_3.png)
+
+![img_4.png](imgs/img_4.png)
+
+![img_5.png](imgs/img_5.png)
+
+
 
 ## 软件架构
 ### 下载器模块
