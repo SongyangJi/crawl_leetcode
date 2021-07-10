@@ -3,3 +3,5 @@ test/
 *.xml
 
 *.iml
+
+.idea
